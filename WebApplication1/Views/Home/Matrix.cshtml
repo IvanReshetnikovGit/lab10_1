@@ -1,0 +1,49 @@
+@model WebApplication1.Models.MatrixViewModel
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin-top: 30px;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<h2>Enter Matrix Size</h2>
+
+<form asp-action="Matrix" method="post">
+    <label for="matrixSize">Matrix Size:</label>
+    <input type="number" id="matrixSize" name="matrixSize" value="@Model" required min="1">
+    <button type="submit">Redo Matrix</button>
+</form>
+
+<table border="1">
+    @for (int i = 0; i < Model.Matrix.Rows; i++)
+    {
+        <tr>
+            @for (int j = 0; j < Model.Matrix.Columns; j++)
+            {
+                <td>@Model.Matrix.Data.GetValue(i, j)</td>
+            }
+            @if(Model.Sum[i]==-1)
+            {
+                <td>Negative</td>
+            }
+            else
+            {
+                <td>Sum= @Model.Sum[i]</td>
+            }
+        </tr>
+    }
+</table>
+<h2>Minimum of sums that are parallel to main diagonal: @Model.MinDiag</h2>
+
